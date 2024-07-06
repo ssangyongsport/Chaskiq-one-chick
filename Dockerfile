@@ -1,5 +1,5 @@
 # https://hub.docker.com/r/chatwoot/chatwoot/tags
-FROM chaskiq/chaskiq:latest
+FROM ghcr.io/ssangyongsportsorg/chaskiqyh:latest
 
 
 COPY --chmod=755 start.sh ./
