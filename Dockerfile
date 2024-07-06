@@ -1,7 +1,6 @@
 # https://hub.docker.com/r/chatwoot/chatwoot/tags
 FROM chaskiq/chaskiq:latest
 
-RUN apk add --no-cache multirun postgresql-client
 
 COPY --chmod=755 start.sh ./
 
