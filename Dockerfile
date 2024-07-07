@@ -1,5 +1,4 @@
-FROM ghcr.io/ssangyongsport/chaskiqthrj:sha-f9ace2a
-
+FROM ghcr.io/ssangyongsport/chaskiqthrj:sha-c3ef1be
 
 COPY --chmod=755 start.sh ./
 
