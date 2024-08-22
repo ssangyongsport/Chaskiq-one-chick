@@ -2,42 +2,11 @@
 
 set -e
 
-# 创建 .postgresql 目录
-mkdir -p $HOME/.postgresql
+# 设置 CA 证书路径
+export SSL_CERT_FILE=/ca.cert.pem
 
-# 下载 Aiven 的 CA 证书到 .postgresql 目录
-echo "-----BEGIN CERTIFICATE-----
-MIIEQTCCAqmgAwIBAgIUEu2g/rhVrTetDgmkGd/BHGhYYcwwDQYJKoZIhvcNAQEM
-BQAwOjE4MDYGA1UEAwwvZjNmNzVhZjEtNTY5My00ZDVlLWI2MWMtY2QwZGU5Y2Qw
-ZjZmIFByb2plY3QgQ0EwHhcNMjQwNjI5MDgzODIzWhcNMzQwNjI3MDgzODIzWjA6
-MTgwNgYDVQQDDC9mM2Y3NWFmMS01NjkzLTRkNWUtYjYxYy1jZDBkZTljZDBmNmYg
-UHJvamVjdCBDQTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAM24Zftc
-olu2F9/rdwmJGawMKLmW6jH3O+QHii001uVptKaqGpfua7GapWdw6+v9Ax2RSvCx
-QRzn70Nh/9pe1bcdYqIwBrXuP4qvpWso6eXndk4XWKswGi8lB9GUh00IBKMjBsh/
-Gu0I/UeK0y7FxFwvlo3SeLHo2uZeD5txygS+nGoizmnGri0gdtMnHf8NfdM9TxGD
-dY8MePocmwe41L5nXtxzNYtCl2bZoyb8vbB4pLd8r1TXDLPUxgHWoChicnLucX+O
-T+qfjaot1yK8NeVkvMaX4zO4No1hswdYj2R1szVdQOqxZLA7+tvMviwdNqhwHnM/
-L6TuaG9gtKussK1+b+762mVHmDTD4cy3/8UgC/S19sASQlvFmfjqZK6nlz3VIowl
-Ag6oF+jyip6b+ec+vyxPfd6A3a6d+4qM2qZyxlEFLOBQ76Lsmjlx/dqJB4fHIPhd
-Vqd3vOzJXyv5BVJDnCMpmaqTfjFKAMk2nHxolsGKQhgSV2cFEEOVB39c9QIDAQAB
-oz8wPTAdBgNVHQ4EFgQUepAdUy/lkwrH0v+egE/rH0Y85/swDwYDVR0TBAgwBgEB
-/wIBADALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQEMBQADggGBAMFBGgKf+QvCISdv
-vCXF4nmwAEMLr3n5j9x6Y5xhix4gc/vQPv28N12Pc2bcDEWopUCSXSYdiMuf71wI
-wrhkha0m6kzJ0PQTPPfCzI8+xhlY4uu0y8IuLhGDXIvIOxlVTAHHwKpQuuCkDdnu
-NerrAVEwU0yUjGbXRqWbznmU6os9J4gRm5ODPuZ0Ads3OjQJxTe+LXYkHQnoTlZT
-L3lI2bSkZomxkRVqHR9Pk3Mehgz+lQVpUcJSpqcTRaOsdFLwcNZbIBYgtslsuIVU
-vWnYvf0N/KgVEiDzGa6vBLT3+0UoJx2ESdL4fX4cX321AI1P4/yoorBK25kH/K9W
-zx15bdNU4qyQiFJ4rNb1wQz6ucONwPmZ+7m+PGwLncA2NPC2ehFuwgL2kECjUEcN
-SsoCrQXydP/C06heR14FXHLFjXPosWciGoUTP4eSRHmVUwLe3MRZrNcWfT3aWH4k
-p83mIkNoFp1tuN5L7yJRmskYkgsazfXQodpqWkcm6hHa7no1TA==
------END CERTIFICATE-----" > $HOME/.postgresql/ca.crt
-
-# 设置数据库并运行迁移
+# 执行 Rails 数据库操作
 bundle exec rails db:setup
 bundle exec rails db:migrate
-
-# 生成管理员账户
 bundle exec rake admin_generator
-
-# 启动 Rails 服务器
 bundle exec rails s -b 0.0.0.0 -p 3000
